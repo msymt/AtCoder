@@ -15,11 +15,9 @@ int main() {
   int a, b, k;
   cin >> a >> b >> k;
   int maxt = max(a, b);
-  int cnt = 0;
   vector<int> d;
   for(int i = 1; i <= maxt; i++) {
     if((a % i == 0) && (b % i == 0)) {
-      cnt++;
       d.push_back(i);
     }
   }
