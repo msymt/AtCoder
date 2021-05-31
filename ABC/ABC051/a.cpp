@@ -15,9 +15,11 @@ using ll = long long;
 int main() {
     cin.tie(0);
     ios_base::sync_with_stdio(0);
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    int x=a*b;
-    int y=c*d;
-    cout << max(x, y) << endl;
+    string s;cin>>s;
+    rep(i, s.size()) {
+        if(s[i] == ',') cout << " ";
+        else cout << s[i];
+    }
+    cout << endl;
     return 0;
 }
