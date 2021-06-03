@@ -6,11 +6,12 @@ fn main() {
         a: i32,
         b: i32,
     }
-    let taxi: i32 = n * a;
-    if taxi > b {
-        println!("{}", b);
-    } else {
-        println!("{}", taxi);
-    }
+    println!("{}", b.min(n * a));
     
+    // let taxi: i32 = n * a;
+    // if taxi > b {
+    //     println!("{}", b);
+    // } else {
+    //     println!("{}", taxi);
+    // }
 }
