@@ -1,4 +1,4 @@
-# atcoder_practice
+# AtCoder
 
 新しい言語の練習場
 
