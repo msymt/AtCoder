@@ -30,26 +30,12 @@ template<class T> inline bool chmax(T& a, T b) {
 const ll INF = 1LL << 60;
 int main() {
     cin.tie(0);ios_base::sync_with_stdio(0);
-    string s,t;
-    cin >> s >> t;
-    string ans = "No";
-    if(s == t) ans = "Yes";
-    
-    rep(i, s.length()) {
-        if(s[i] != t[i]) {
-            if(i > 0) {
-                swap(s[i-1], s[i]);
-                if(s == t) ans = "Yes";
-                swap(s[i-1], s[i]);
-            }
-            if (s.length() > i + 1) {
-                swap(s[i], s[i+1]);
-                if(s == t) ans = "Yes";
-                swap(s[i], s[i+1]);
-            }
-            if(ans == "Yes") break;
-        }
+    int n, p; cin >> n >> p;
+    int a[n + 1]; rep(i, n) cin >> a[i];
+    int cnt = 0;
+    rep(i, n) {
+        if(a[i] < p) cnt++;
     }
-    cout << ans << endl;
+    cout << cnt << endl;
     return 0;
 }
