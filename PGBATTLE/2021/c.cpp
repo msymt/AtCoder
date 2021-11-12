@@ -1,3 +1,6 @@
+// g++ -std=c++14 -o c c.cpp
+
+#include <atcoder/modint>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -9,8 +12,12 @@
 #include <cmath>
 #define rep(i, n) for(int i = 0; i < (int)(n); i++)
 #define FOR(i, k, n) for(int i = (k); i < (int)(n); i++)
+#define mod 998244353
 using namespace std;
+using namespace atcoder;
 using ll = long long;
+using mint = modint;
+
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
@@ -32,49 +39,45 @@ const ll INF = 1LL << 60;
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {-1, 0, 1, 0};
 
-const ll mod = 998244353;
-
-ll comb(ll n, ll r) {
-    ll top=1, bottom=1;
-    for (int i=1; i<n+1; i++) top *= i;
-    for (int i=1; i<r+1; i++) bottom *= i;
-    for (int i=1; i<n-r+1; i++) bottom *= i;
-    ll ans = (top % mod) / (bottom % mod);
-    return ans;
-}
-
-
-ll combination(ll n, ll r, ll m, ll s, ll o, ll t) {
-    ll top=1, bottom=1;
-    ll top2=1, bottom2=1;
-    ll top3=1, bottom3=1;
-
-    for (ll i=1; i<n+1; i++) top *= i%mod;
-    for (ll i=1; i<r+1; i++) bottom *= i%mod;
-    for (ll i=1; i<n-r+1; i++) bottom *= i%mod;
-    
-    for (ll i=1; i<m+1; i++) top2 *= i;
-    for (ll i=1; i<s+1; i++) bottom2 *= i;
-    for (ll i=1; i<m-s+1; i++) bottom2 *= i;
-
-    for (ll i=1; i<o+1; i++) top3 *= i;
-    for (ll i=1; i<t+1; i++) bottom3 *= i;
-    for (ll i=1; i<o-t+1; i++) bottom3 *= i;
-    ll ans1 = (top / bottom) %mod;
-    ll ans2 = top2 / bottom2;
-    ll ans3 = top3 / bottom3;
-    ll ans = ans1 - ans2*ans3;
-    return ans;
+modint nCr(int n, int r) {
+    if(n < r) return 0;
+    mint res = 1;
+    for(int i = 0; i < r; i++) {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+    return res;
 }
 
 int main() {
     cin.tie(0);ios_base::sync_with_stdio(0);
-    int n, m, a, b;
+    int n, m, a, b, ans;
     cin >> n >> m >> a >> b;
-    if(a - n > 0 || b - m > 0) {
-        cout << comb(n+m, n) << endl;
+    // vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
+    // dp[0][0] = 1;
+    // for(int i = 0; i <= n; i++) {
+    //     for(int j = 0; j <=m; j++) {
+    //         // 侵入禁止 = 歩数0と扱う
+    //         if(i == a && j == b) dp[i][j] = 0;continue;
+    //         // x軸を足す
+    //         if(i != 0) dp[i][j] += dp[i - 1][j];
+    //         // y軸を足す
+    //         if(j != 0) dp[i][j] += dp[i][j - 1];
+    //         dp[i][j] %= mod;
+    //     }
+    // }
+    // // (N, M)
+    // ans = dp[n][m];
+
+    if(a <= n && b <= m) {
+        mint res = nCr(n + m, n);
+        mint sub = nCr(a + b, a);
+        sub *= nCr(((n+m) - (a+b)), (n-a));
+        res -= sub;
+        ans = res.val();
     } else {
-        cout << combination(n+m, n, a+b, b, (n-a + m-b), m-b) << endl;
+        ans = nCr(n + m, n).val();
     }
+    cout << ans << endl;
     return 0;
 }
