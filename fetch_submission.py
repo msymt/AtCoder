@@ -107,11 +107,17 @@ for submissions in newestSubmits.values():
         
         # 作成するファイルへのパス
         path = root + sub["contest_id"] + "/" + problem_num
-        # 拡張子の設定（C++, Pythonのみ）
+        # 拡張子の設定
         if "C++" in sub["language"]:
             path += ".cpp"
         elif "Python" in sub["language"]:
             path += ".py"
+        elif "Kotlin" in sub["language"]:
+            path += ".kt"
+        elif "Rust" in sub["language"]:
+            path += ".rs"
+        elif "C" in sub["language"]:
+            path += ".c"
         
         # 既に提出コードがある場合は取得せず、次の問題の提出を探す
         if os.path.isfile(path): continue
@@ -165,10 +171,10 @@ else:
     import datetime
 
     dt_now = datetime.datetime.now()
-    repo_url = "https://github.com/tishii2479/atcoder.git"
+    repo_url = "https://github.com/msymt/competitive_programming.git"
     repo = git.Repo()
-    repo.git.add("submissions/*")
-    repo.git.commit("submissions/*", message="add submission: " + dt_now.strftime('%Y/%m/%d %H:%M:%S'))
+    repo.git.add("atcoder/submissions/*")
+    repo.git.commit("atcoder/submissions/*", message="[add] atcoder submission: " + dt_now.strftime('%Y/%m/%d %H:%M:%S'))
     repo.git.push("origin", "main")
 
     print(f"Finished process, added {add_cnt} files")
