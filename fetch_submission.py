@@ -81,6 +81,7 @@ for contestName in newestSubmits:
 
 
 import re
+import sys
 import html
 import chromedriver_binary
 from selenium import webdriver
@@ -148,7 +149,11 @@ for submissions in newestSubmits.values():
         
         # C++の場合にはclang-formatを使ってフォーマットする
         if "C++" in sub["language"]:
-            subprocess.call(["clang-format", "-i",  "-style=file", path])
+            command_path = sys.argv # path/to/fetch_submission.py
+            command_path_list = command_path[0].split("/")
+            cur_path = "/".join(command_path_list[:-1]) # path/to
+            clang_format = cur_path + "/clang-format"
+            subprocess.call([clang_format, "-i",  "-style=file", path])
         
         # 追加したファイルの数を増やす
         add_cnt += 1
