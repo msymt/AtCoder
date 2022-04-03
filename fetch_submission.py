@@ -119,7 +119,7 @@ for submissions in newestSubmits.values():
             path += ".rs"
         elif "C#" in sub["language"]:
             path += ".cs"
-        else "C" in sub["language"]:
+        else:
             path += ".c"
         
         # 既に提出コードがある場合は取得せず、次の問題の提出を探す
