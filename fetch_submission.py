@@ -130,7 +130,7 @@ for submissions in newestSubmits.values():
         driver.get(sub_url)
         
         # 提出コードの取得
-        code = driver.find_element_by_id("submission-code") 
+        code = driver.find_element("submission-code")
         
         # code.text は提出時に含めていない空白が期待に反して含まれてしまう
         # 空白はシンタックスハイライティングによるものであるように見える
